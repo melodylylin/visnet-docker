@@ -51,12 +51,6 @@ RUN bash /tmp/install/ros.sh && /docker_clean.sh
 COPY install/gazebo.sh /tmp/install/gazebo.sh
 RUN bash /tmp/install/gazebo.sh && /docker_clean.sh
 
-# COPY install/zenoh.sh /tmp/install/zenoh.sh
-# RUN /tmp/install/zenoh.sh && /docker_clean.sh
-
-# COPY install/zephyr.sh /tmp/install/zephyr.sh
-# RUN /tmp/install/zephyr.sh && /docker_clean.sh
-
 # COPY install/ros_gz.sh /tmp/install/ros_gz.sh
 # RUN /tmp/install/ros_gz.sh && /docker_clean.sh
 
@@ -85,12 +79,6 @@ RUN bash /tmp/install/latex.sh && /docker_clean.sh
 COPY install/extra.sh /tmp/install/extra.sh
 RUN bash /tmp/install/extra.sh && /docker_clean.sh
 
-# # setup zeth ethernet device
-# RUN sudo mkdir -p /opt/zeth
-# COPY install/net-setup.sh /opt/zeth
-# COPY install/zeth.conf /opt/zeth
-# RUN sudo chmod +x /opt/zeth/net-setup.sh
-
 # enable apt auto-completion by deleting autoclean task
 RUN sudo rm /etc/apt/apt.conf.d/docker-clean
 
@@ -118,6 +106,9 @@ RUN mkdir -p /home/user/.gz && \
 VOLUME /home/user/work
 WORKDIR /home/user/work
 RUN mkdir -p /home/user/work
+
+COPY install/px4_setup.sh /home/user/px4_setup.sh
+RUN bash /home/user/px4_setup.sh && rm /home/user/px4_setup.sh
 
 # setup entry point
 COPY install/entrypoint.sh /

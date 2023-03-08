@@ -5,11 +5,7 @@ set -x
 VNCPASSWD="$1"
 
 sudo rosdep init
-
-# create symlink to west in $HOME/bin
-mkdir -p ~/bin
-cd ~/bin
-ln -s /opt/.venv-zephyr/bin/west .
+rosdep update
 
 # setup vnc
 mkdir ~/.vnc && echo "$VNCPASSWD" | /opt/TurboVNC/bin/vncpasswd -f > ~/.vnc/passwd && \
@@ -21,14 +17,14 @@ source /opt/ros/humble/setup.bash
 export CCACHE_TEMPDIR=/tmp/ccache
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export PYTHONWARNINGS=ignore:::setuptools.installer,ignore:::setuptools.command.install
-export GZ_SIM_RESOURCE_PATH=~/work/cranium/src/dream/models:~/work/cranium/src/dream/worlds
+export GZ_SIM_RESOURCE_PATH=~/work/ros2_ws/src/visnet/models:~/work/ros2_ws/src/visnet/worlds
 if [ -f ~/work/gazebo/install/setup.sh ]; then
   source ~/work/gazebo/install/setup.sh
   echo "gazebo built, sourcing"
 fi
-if [ -f ~/work/cranium/install/setup.sh ]; then
-  source ~/work/cranium/install/setup.sh
-  echo "dream built, sourcing"
+if [ -f ~/work/ros2_ws/install/setup.sh ]; then
+  source ~/work/ros2_ws/install/setup.sh
+  echo "workspace built, sourcing"
 fi
 source /usr/share/colcon_cd/function/colcon_cd.sh
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
