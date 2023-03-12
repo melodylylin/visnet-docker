@@ -57,21 +57,8 @@ RUN bash /tmp/install/gazebo.sh && /docker_clean.sh
 # add groups before we do anything that might add a new group
 ARG GID_INPUT=107
 ARG GID_RENDER=110
-ARG GID_VGLUSERS=1005
 RUN sudo groupadd -r -g $GID_INPUT input && \
- sudo groupadd -r -g $GID_RENDER render && \
- sudo groupadd -r -g $GID_VGLUSERS vglusers
-
-# install virtualgl and turbovnc
-COPY install/virtualgl_3.0.91_amd64.deb /tmp
-RUN cd /tmp && \
-  wget https://sourceforge.net/projects/turbovnc/files/3.0.2/turbovnc_3.0.2_amd64.deb  && \
-  sudo apt-get -y update && \
-  sudo apt-get -y upgrade && \
-  sudo DEBIAN_FRONTEND=noninteractive  apt-get install --no-install-recommends -y \
-    ./virtualgl_3.0.91_amd64.deb \
-    ./turbovnc_3.0.2_amd64.deb && \
-  /docker_clean.sh
+ sudo groupadd -r -g $GID_RENDER render
 
 COPY install/latex.sh /tmp/install/latex.sh
 RUN bash /tmp/install/latex.sh && /docker_clean.sh
@@ -87,15 +74,9 @@ RUN mkdir /tmp/runtime-docker && sudo chmod 700 /tmp/runtime-docker
 
 # create a user for running the container
 ARG UID_USER=1000
-RUN sudo useradd --create-home -l -u $UID_USER -G sudo,plugdev,render,input,vglusers,video user && \
- echo user: $UID_USER && \
- sudo vglserver_config +egl
-
+RUN sudo useradd --create-home -l -u $UID_USER -G sudo,plugdev,render,input,video user && \
+ echo user: $UID_USER
 USER user
-
-ARG VNCPASSWD=yourmum
-COPY install/user_setup.sh /tmp/install/user_setup.sh
-RUN bash /tmp/install/user_setup.sh $VNCPASSWD && /docker_clean.sh
 
 # create setting directory for gazebo
 VOLUME /home/user/.gz
