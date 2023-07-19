@@ -9,6 +9,8 @@ services:
 
   visnet_1:
     environment:
+      - HOST_UID=${HOST_UID}
+      - HOST_GID=${HOST_GID}
       - DISPLAY=$DISPLAY
       - RUN_VNC=false
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
@@ -19,8 +21,8 @@ services:
       - PX4_MICRODDS_NS=px4_1
     image: visnet
     # image: ${REGISTRY}/cognipilot/dream:${TAG}
-    # build:
-    #   dockerfile: Dockerfile
+    build:
+       dockerfile: Dockerfile
     tty: true
     stdin_open: true
     privileged: true
@@ -39,6 +41,8 @@ services:
     
   visnet_2:
     environment:
+      - HOST_UID=${HOST_UID}
+      - HOST_GID=${HOST_GID}
       - DISPLAY=$DISPLAY
       - RUN_VNC=false
       - SSH_AUTH_SOCK=${SSH_AUTH_SOCK}
@@ -49,8 +53,8 @@ services:
       - PX4_MICRODDS_NS=px4_2
     image: visnet
     # image: ${REGISTRY}/cognipilot/dream:${TAG}
-    # build:
-    #   dockerfile: Dockerfile
+    build:
+       dockerfile: Dockerfile
     tty: true
     stdin_open: true
     privileged: true
