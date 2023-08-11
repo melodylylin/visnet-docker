@@ -3,7 +3,7 @@ Docker files needed to build images for visnet/px4_sitl simulation in ROS2 and G
 
 The `./work` directory setup 
 
-run `./ros_ws.sh` to clone each repo and add AbuDhabi model to px4 gz world (probably will set up submodules soon)
+run `./ros2_ws.sh` to clone each repo and add AbuDhabi model to px4 gz world (probably will set up submodules soon)
 ```
 work/
 ┣ px4/
