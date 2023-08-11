@@ -78,6 +78,9 @@ RUN sudo useradd --create-home -l -u $UID_USER -G sudo,plugdev,render,input,vide
  echo user: $UID_USER
 USER user
 
+COPY install/user_setup.sh /tmp/install/user_setup.sh
+RUN /tmp/install/user_setup.sh && /docker_clean.sh
+
 # create setting directory for gazebo
 VOLUME /home/user/.gz
 RUN mkdir -p /home/user/.gz && \

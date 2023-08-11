@@ -6,6 +6,7 @@ sudo rosdep init
 rosdep update
 
 cat << EOF >> ~/.bashrc
+echo sourcing ~/.bashrc
 source /opt/ros/humble/setup.bash
 export CCACHE_TEMPDIR=/tmp/ccache
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

@@ -17,3 +17,4 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
 	python3-rosdep \
 	python3-colcon-common-extensions \
 	libgflags-dev
+sudo apt install ros-humble-actuator-msgs 
