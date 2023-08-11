@@ -22,7 +22,7 @@ To build the image
 
 To run multiple drones
 
-`docker compose up`
+`./run_dev.sh`
 
 To access the shell of each service, in two different terminals run
 
