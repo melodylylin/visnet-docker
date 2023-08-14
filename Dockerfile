@@ -78,6 +78,9 @@ RUN sudo useradd --create-home -l -u $UID_USER -G sudo,plugdev,render,input,vide
  echo user: $UID_USER
 USER user
 
+COPY install/user_setup.sh /tmp/install/user_setup.sh
+RUN /tmp/install/user_setup.sh && /docker_clean.sh
+
 # create setting directory for gazebo
 VOLUME /home/user/.gz
 RUN mkdir -p /home/user/.gz && \
@@ -95,6 +98,8 @@ RUN bash /home/user/px4_setup.sh && rm /home/user/px4_setup.sh
 COPY install/entrypoint.sh /
 RUN sudo chmod +x /entrypoint.sh
 RUN sudo chsh -s /bin/bash user
+
+USER root
 
 CMD ["/bin/bash"]
 ENTRYPOINT ["/entrypoint.sh"]

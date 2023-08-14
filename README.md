@@ -1,7 +1,9 @@
 # visnet-docker
 Docker files needed to build images for visnet/px4_sitl simulation in ROS2 and Gazebo
 
-The `./work` directory setup (Need to manualy clone each repo, probably will set up submodules soon)
+The `./work` directory setup 
+
+run `./get_src.sh` to clone each repo and add AbuDhabi model to px4 gz world (probably will set up submodules soon)
 ```
 work/
 ┣ px4/
@@ -16,16 +18,16 @@ work/
 ### Build and run
 To build the image
 
-`docker build ./`
+`docker compose build`
 
 To run multiple drones
 
-`docker compose up`
+`./run_dev.sh`
 
 To access the shell of each service, in two different terminals run
 
-Terminal 1: `docker exec -it visnet-visnet_1-1 terminator`\
-Terminal 2: `docker exec -it visnet-visnet_2-1 terminator`
+Terminal 1: `docker exec -u user -it visnet-visnet_1-1 terminator`\
+Terminal 2: `docker exec -u user -it visnet-visnet_2-1 terminator`
 
 To start px4_sitl and ros2 offboard control, split each terminator into 3 panels and run
 
